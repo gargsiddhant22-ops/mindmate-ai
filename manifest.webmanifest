@@ -1,0 +1,17 @@
+{
+  "name": "MindMate AI",
+  "short_name": "MindMate",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fbf9ff",
+  "theme_color": "#8b6cc5",
+  "description": "A gentle mental-wellness companion demo.",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

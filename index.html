@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#8b6cc5">
+  <meta name="description" content="MindMate is a gentle mental-wellness companion demo.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <title>MindMate AI</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#342b43;background:#fbf9ff}
+    *{box-sizing:border-box}body{margin:0}header{padding:24px 18px;background:linear-gradient(135deg,#e9ddff,#fde8f0)}
+    main{max-width:760px;margin:auto;padding:16px}.brand{font-size:1.35rem;font-weight:800;color:#563d80}
+    h1{font-size:1.8rem;margin:24px 0 6px}p{line-height:1.5}.muted{color:#6f667c}
+    nav{display:flex;gap:6px;padding:6px;background:#f0ebf8;border-radius:16px;position:sticky;top:0}
+    nav button,.btn{border:0;border-radius:12px;padding:11px 13px;font-weight:650;cursor:pointer}
+    nav button{flex:1;background:transparent;color:#655778}nav button.active{background:white;color:#573b83}
+    section{display:none;padding:18px 0}section.active{display:block}
+    .card{background:white;border:1px solid #ece6f3;border-radius:18px;padding:16px;margin:14px 0;box-shadow:0 3px 12px #4d35600a}
+    .moods{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.mood{font-size:1.6rem;background:white;border:1px solid #e8e0f0;border-radius:13px;padding:12px 4px}
+    .mood.selected{background:#eee5ff;border:2px solid #9b7ad0}
+    .btn{background:#8261bd;color:white}.btn.secondary{background:#f0ebf8;color:#523c75}
+    input,textarea{width:100%;padding:12px;border:1px solid #ded5e8;border-radius:12px;font:inherit;background:white;color:#342b43}
+    textarea{min-height:120px;resize:vertical}.chatlog{display:flex;flex-direction:column;gap:10px;min-height:170px;max-height:320px;overflow:auto}
+    .bubble{padding:11px 13px;border-radius:15px;max-width:88%;line-height:1.5;font-size:.95rem}
+    .bot{background:#f0ebf8;align-self:flex-start}.user{background:#e8dcff;align-self:flex-end}
+    .row{display:flex;gap:8px}.row input{min-width:0}.notice{font-size:.82rem;color:#6f667c}
+    .breath{width:150px;height:150px;border-radius:50%;margin:15px auto;background:#eee5ff;display:grid;place-content:center;text-align:center;color:#563d80}
+    footer{text-align:center;font-size:.8rem;color:#766d80;padding:22px}
+  </style>
+</head>
+<body>
+<header><div class="brand">☁️ MindMate AI</div><h1>A little space for you. 💜</h1><p>Your feelings matter. Take today one step at a time.</p></header>
+<main>
+<nav aria-label="Main navigation">
+  <button class="active" data-page="home">🏠 Home</button>
+  <button data-page="chat">💬 Chat</button>
+  <button data-page="journal">📖 Journal</button>
+  <button data-page="relax">🌿 Relax</button>
+</nav>
+<section id="home" class="active">
+  <h2>How are you feeling?</h2><p class="muted">There are no wrong answers.</p>
+  <div class="moods" id="moods">
+    <button class="mood" data-mood="Happy">😊</button><button class="mood" data-mood="Good">🙂</button>
+    <button class="mood" data-mood="Okay">😐</button><button class="mood" data-mood="Sad">😔</button><button class="mood" data-mood="Stressed">😣</button>
+  </div><p id="moodStatus" class="muted" aria-live="polite">Choose an emoji to record today's mood.</p>
+  <div class="card"><h3>Want to talk? 💌</h3><p class="muted">Share what's on your mind. You don't have to figure everything out at once.</p><button class="btn" data-open="chat">Open chat</button></div>
+  <div class="card"><h3>A gentle reminder 🌷</h3><p>You don't need to have everything figured out today. Small steps count.</p></div>
+</section>
+<section id="chat">
+  <h2>Your supportive space 💜</h2><p class="muted">This starter uses demonstration replies, not a live AI model.</p>
+  <div class="card"><div class="chatlog" id="chatlog"><div class="bubble bot">Hi! I'm MindMate. What's on your mind today? 💜</div></div>
+  <form id="chatForm" class="row" style="margin-top:12px"><input id="chatInput" maxlength="500" placeholder="Write a message…" aria-label="Message"><button class="btn">Send</button></form></div>
+  <p class="notice">Please don't enter names, addresses, passwords, medical details or other identifying information. This is not therapy or emergency support.</p>
+</section>
+<section id="journal">
+  <h2>My little journal 📖</h2><p class="muted">A private reflection space for this demo.</p>
+  <div class="card"><label for="entry">What's on your mind?</label><textarea id="entry" placeholder="Today I felt…"></textarea>
+  <button class="btn" id="showEntry" style="margin-top:10px">Preview entry</button><p id="entryPreview" class="muted" aria-live="polite">Your writing will appear here temporarily. It is not saved.</p></div>
+  <p class="notice">Do not use this demo for sensitive personal writing. A secure, reviewed storage system would be needed before public journal accounts are added.</p>
+</section>
+<section id="relax">
+  <h2>Take a little break 🌿</h2><div class="card" style="text-align:center"><h3>Gentle breathing</h3><p class="muted">Breathe comfortably. Don't force or hold your breath.</p>
+  <div class="breath"><div><strong id="breathCount">4</strong><div id="breathPhase">Breathe in</div></div></div>
+  <button class="btn" id="breathToggle">Start exercise</button><p class="notice">Stop at any time and return to normal breathing if uncomfortable.</p></div>
+  <div class="card"><h3>Grounding exercise</h3><p>Notice three things you can see, two things you can hear, and one thing you can feel. Take your time.</p></div>
+</section>
+</main>
+<footer>MindMate AI · A wellness companion demo, not a medical service.</footer>
+<script>
+const pages=[...document.querySelectorAll('main section')];
+function openPage(id){pages.forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id))}
+document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>openPage(b.dataset.page)));
+document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>openPage(b.dataset.open)));
+document.querySelectorAll('[data-mood]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.mood').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');document.getElementById('moodStatus').textContent='Demo check-in: '+b.dataset.mood+'.'}));
+const replies=[
+"Thank you for sharing that. What part feels most important to you right now?",
+"That sounds like a lot to carry. Is there someone you trust who you could talk with?",
+"Would it help to write down what you're feeling, or take a small break?",
+"I can't know exactly how you feel, but I can offer a non-judgmental space to reflect.",
+"Let's take this one step at a time. What kind of support would feel helpful?"
+];let ri=0;
+document.getElementById('chatForm').addEventListener('submit',e=>{e.preventDefault();const input=document.getElementById('chatInput'),v=input.value.trim();if(!v)return;const log=document.getElementById('chatlog');const u=document.createElement('div');u.className='bubble user';u.textContent=v;log.append(u);input.value='';const a=document.createElement('div');a.className='bubble bot';a.textContent=replies[ri++%replies.length];log.append(a);log.scrollTop=log.scrollHeight});
+document.getElementById('showEntry').addEventListener('click',()=>{const v=document.getElementById('entry').value.trim();document.getElementById('entryPreview').textContent=v||'Write a reflection first.'});
+let timer=null,phase=0,count=4;const countEl=document.getElementById('breathCount'),phaseEl=document.getElementById('breathPhase'),toggle=document.getElementById('breathToggle');
+toggle.addEventListener('click',()=>{if(timer){clearInterval(timer);timer=null;toggle.textContent='Start exercise';phaseEl.textContent='Paused';countEl.textContent='—';return}phase=0;count=4;toggle.textContent='Pause exercise';timer=setInterval(()=>{count--;if(count===0){phase=1-phase;count=4}countEl.textContent=count;phaseEl.textContent=phase?'Breathe out':'Breathe in'},1000)});
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script>
+</body></html>
